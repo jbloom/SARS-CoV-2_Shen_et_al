@@ -1,0 +1,7 @@
+.*
+!.gitignore
+_*
+*.out
+core
+
+results

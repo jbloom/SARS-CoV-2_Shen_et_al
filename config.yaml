@@ -1,0 +1,22 @@
+# accessions for samples on the SRA for PRJNA605907
+SRA_accessions:
+  nCoV-1: SRR11059947
+  nCoV-2: SRR11059946
+  nCoV-3: SRR11059945
+  nCoV-4: SRR11059944
+  nCoV-5: SRR11059943
+  nCoV-6: SRR11059942
+  nCoV-7: SRR11059941
+  nCoV-8: SRR11059940
+
+# BAM file paths on the SRA, gotten manually from links like this:
+# https://trace.ncbi.nlm.nih.gov/Traces/sra/?run=SRR11059947
+SRA_bams:
+  nCoV-1: https://storage.googleapis.com/nih-sequence-read-archive/sra-src/SRR11059947/nCov1.bam.2
+  nCoV-2: https://storage.googleapis.com/nih-sequence-read-archive/sra-src/SRR11059946/nCov2.bam
+  nCoV-3: https://storage.googleapis.com/nih-sequence-read-archive/sra-src/SRR11059945/nCov3.bam
+  nCoV-4: https://storage.googleapis.com/nih-sequence-read-archive/sra-src/SRR11059944/nCov4.bam
+  nCoV-5: https://storage.googleapis.com/nih-sequence-read-archive/sra-src/SRR11059943/nCov5.bam
+  nCoV-6: https://storage.googleapis.com/nih-sequence-read-archive/sra-src/SRR11059942/nCov6.bam
+  nCoV-7: https://storage.googleapis.com/nih-sequence-read-archive/sra-src/SRR11059941/nCov7.bam
+  nCoV-8: https://storage.googleapis.com/nih-sequence-read-archive/sra-src/SRR11059940/nCov8.bam
