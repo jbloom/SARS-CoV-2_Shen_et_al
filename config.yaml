@@ -1,13 +1,13 @@
 # accessions for samples on the SRA for PRJNA605907
 SRA_accessions:
-  nCoV-1: SRR11059947
-  nCoV-2: SRR11059946
-  nCoV-3: SRR11059945
-  nCoV-4: SRR11059944
-  nCoV-5: SRR11059943
-  nCoV-6: SRR11059942
-  nCoV-7: SRR11059941
-  nCoV-8: SRR11059940
+  nCoV-1: https://sra-pub-sars-cov2.s3.amazonaws.com/run/SRR11059947/SRR11059947
+  nCoV-2: https://sra-pub-sars-cov2.s3.amazonaws.com/run/SRR11059946/SRR11059946
+  nCoV-3: https://sra-pub-sars-cov2.s3.amazonaws.com/run/SRR11059945/SRR11059945
+  nCoV-4: https://sra-pub-sars-cov2.s3.amazonaws.com/run/SRR11059944/SRR11059944
+  nCoV-5: https://sra-pub-sars-cov2.s3.amazonaws.com/run/SRR11059943/SRR11059943
+  nCoV-6: https://sra-pub-sars-cov2.s3.amazonaws.com/run/SRR11059942/SRR11059942
+  nCoV-7: https://sra-pub-sars-cov2.s3.amazonaws.com/run/SRR11059941/SRR11059941
+  nCoV-8: https://sra-pub-sars-cov2.s3.amazonaws.com/run/SRR11059940/SRR11059940
 
 # BAM file paths on the SRA, gotten manually from links like this:
 # https://trace.ncbi.nlm.nih.gov/Traces/sra/?run=SRR11059947
