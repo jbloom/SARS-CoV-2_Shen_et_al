@@ -4,4 +4,7 @@ _*
 *.out
 core
 
-results
+results/*
+!results/aggregated_variants
+results/aggregated_variants/*
+!results/aggregated_variants/all_samples.csv

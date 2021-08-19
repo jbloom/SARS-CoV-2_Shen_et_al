@@ -19,8 +19,7 @@ SRA_FQ_SUFFIXES = {'': 'single',
 
 rule all:
     input:
-        expand("results/aggregated_variants/{name}.csv",
-               name=config['SRA_bams'])
+        'results/aggregated_variants/all_samples.csv'
 
 rule get_genbank_fasta:
     """Get FASTA from Genbank."""
@@ -148,3 +147,20 @@ rule aggregate_variants_by_sample:
         sras=SRA_FQ_SUFFIXES
     conda: 'environment.yml'
     script: 'scripts/aggregate_variants_by_sample.py'
+
+rule aggregate_variants:
+    """Aggregate variants for all samples."""
+    input:
+        csvs=expand(rules.aggregate_variants_by_sample.output.csv,
+                    name=config['SRA_bams'])
+    output: csv='results/aggregated_variants/all_samples.csv'
+    run:
+        first = True
+        with open(output.csv, 'w') as f_out:
+            for csv_file in input.csvs:
+                with open(csv_file) as f_in:
+                    if not first:
+                        f_in.readline()
+                        first = False
+                    for line in f_in:
+                        f_out.write(line)
