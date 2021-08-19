@@ -104,10 +104,42 @@ rule align_fastq:
         samtools sort -o {output.bam} {output.unsorted_bam}
         """
 
+rule ivar:
+    """Call variants and consensus using ``ivar``."""
+    input:
+        bam=rules.align_fastq.output.bam,
+        ref=f"results/genbank/{config['refgenome']}.fasta",
+    output:
+        pileup=temp("results/ivar/{path}.pileup"),
+        consensus="results/ivar/{path}.fa",
+        variants="results/ivar/{path}.tsv",
+    params:
+        minq=config['ivar_minq'],
+        depth=config['ivar_mindepth'],
+        variants_minfreq=config['ivar_variants_minfreq'],
+        prefix="results/ivar/{path}"
+    conda: 'environment.yml'
+    shell:
+        """
+        samtools mpileup -aa -A -d 0 -B -Q {params.minq} {input.bam} > {output.pileup}
+        cat {output.pileup} | ivar consensus \
+            -p {params.prefix} \
+            -t 0.5 \
+            -q {params.minq} \
+            -m {params.depth}
+        cat {output.pileup} | ivar variants \
+            -p {params.prefix} \
+            -t {params.variants_minfreq} \
+            -q {params.minq} \
+            -m {params.depth} \
+            -r {input.ref}
+        """
+
 rule aggregate_alignment_by_run:
     input:
-        lambda wc: [f"results/alignments/SRA_bams/{wc.name}_by_run/{run}_sorted.bam"
-                    for run in list_runs(wc)]
+        lambda wc: [f"results/ivar/SRA_bams/{wc.name}_by_run/{run}{ext}"
+                    for run in list_runs(wc)
+                    for ext in ['.tsv', '.fa']]
     output: "_temp/_temp_{name}"
     conda: 'environment.yml'
     shell: "touch {output}"

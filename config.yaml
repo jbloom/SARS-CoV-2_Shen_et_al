@@ -23,3 +23,8 @@ SRA_bams:
 
 # Reference genome for alignment
 refgenome: MN908947  # Wuhan-Hu-1
+
+# settings for `ivar`
+ivar_minq: 20
+ivar_mindepth: 5
+ivar_variants_minfreq: 0.1
