@@ -11,16 +11,16 @@ configfile: 'config.yaml'
 
 
 # suffixes on FASTQ files extracted from SRA files
-SRA_FQ_SUFFIXES = ['', '_1', '_2']
+SRA_FQ_SUFFIXES = {'': 'single',
+                   '_1': 'read_1',
+                   '_2': 'read_2',
+                   }
 
 
 rule all:
     input:
-        expand("results/SRA_files/{name}{sra_fq_suffix}.fastq.gz",
-               sra_fq_suffix=SRA_FQ_SUFFIXES,
-               name=config['SRA_accessions']),
-        expand("_temp/_temp_{name}",
-               name=config['SRA_bams']),
+        expand("results/aggregated_variants/{name}.csv",
+               name=config['SRA_bams'])
 
 rule get_genbank_fasta:
     """Get FASTA from Genbank."""
@@ -135,15 +135,16 @@ rule ivar:
             -r {input.ref}
         """
 
-rule aggregate_alignment_by_run:
+rule aggregate_variants_by_sample:
+    """Aggregate all the variants for a sample."""
     input:
-        lambda wc: ([f"results/ivar/SRA_bams/{wc.name}_by_run/{run}{ext}"
-                     for run in list_runs(wc)
-                     for ext in ['.tsv', '.fa']] +
-                    [f"results/ivar/SRA_files/{wc.name}{sra_fq_suffix}{ext}"
-                     for sra_fq_suffix in SRA_FQ_SUFFIXES
-                     for ext in ['.tsv', '.fa']]
-                    )
-    output: "_temp/_temp_{name}"
+        bams=lambda wc: [f"results/ivar/SRA_bams/{wc.name}_by_run/{run}.tsv"
+                         for run in list_runs(wc)],
+        sras=lambda wc: [f"results/ivar/SRA_files/{wc.name}{sra_fq_suffix}.tsv"
+                         for sra_fq_suffix in SRA_FQ_SUFFIXES],
+    output: csv="results/aggregated_variants/{name}.csv"
+    params:
+        bam_runs=list_runs,
+        sras=SRA_FQ_SUFFIXES
     conda: 'environment.yml'
-    shell: "touch {output}"
+    script: 'scripts/aggregate_variants_by_sample.py'
