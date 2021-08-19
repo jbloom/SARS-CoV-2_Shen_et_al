@@ -23,3 +23,11 @@ I was able to find the early access version for _Clinical Infectious Diseases_ a
 The supplementary data links for the early access version is archived [here](https://web.archive.org/web/20200308003745/https://academic.oup.com/cid/advance-article/doi/10.1093/cid/ciaa203/5780800?searchresult=1#supplementary-data).
 However, the actual links to the supplementary material are broken, so I cannot access the actual supplementary data for the early access version.
 
+## Analysis pipeline
+The analysis pipeline in [Snakefile](Snakefile) gets the accessions from both the SRA uploaded BAMs and SRA files, and alignms them to Wuhan-Hu-1 and calls variants.
+Before doing this, it splits into separate files / Illumina runs and analyzes those independently.
+
+The final variant calls are in [results/aggregated_variants/all_samples.csv](results/aggregated_variants/all_samples.csv).
+
+Then the Jupyter notebook [analysis.ipynb](analysis.ipynb) is run manually outside the `snakemake` pipeline to look at mutations.
+Although some of the samples have a lot of mutations, they are confusing and don't seem to be ones to more ancestral variants (nothing at 8782, 18060, 28144, or 29095).

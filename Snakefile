@@ -161,6 +161,7 @@ rule aggregate_variants:
                 with open(csv_file) as f_in:
                     if not first:
                         f_in.readline()
+                    else:
                         first = False
                     for line in f_in:
                         f_out.write(line)
