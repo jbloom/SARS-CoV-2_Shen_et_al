@@ -137,9 +137,13 @@ rule ivar:
 
 rule aggregate_alignment_by_run:
     input:
-        lambda wc: [f"results/ivar/SRA_bams/{wc.name}_by_run/{run}{ext}"
-                    for run in list_runs(wc)
-                    for ext in ['.tsv', '.fa']]
+        lambda wc: ([f"results/ivar/SRA_bams/{wc.name}_by_run/{run}{ext}"
+                     for run in list_runs(wc)
+                     for ext in ['.tsv', '.fa']] +
+                    [f"results/ivar/SRA_files/{wc.name}{sra_fq_suffix}{ext}"
+                     for sra_fq_suffix in SRA_FQ_SUFFIXES
+                     for ext in ['.tsv', '.fa']]
+                    )
     output: "_temp/_temp_{name}"
     conda: 'environment.yml'
     shell: "touch {output}"
