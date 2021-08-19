@@ -20,3 +20,6 @@ SRA_bams:
   nCoV-6: https://storage.googleapis.com/nih-sequence-read-archive/sra-src/SRR11059942/nCov6.bam
   nCoV-7: https://storage.googleapis.com/nih-sequence-read-archive/sra-src/SRR11059941/nCov7.bam
   nCoV-8: https://storage.googleapis.com/nih-sequence-read-archive/sra-src/SRR11059940/nCov8.bam
+
+# Reference genome for alignment
+refgenome: MN908947  # Wuhan-Hu-1
